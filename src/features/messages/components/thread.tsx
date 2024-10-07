@@ -25,9 +25,9 @@ const TIME_THRESHOLD = 5;
 interface ThreadProps {
   messageId: Id<"messages">;
   onClose: () => void;
-};
+}
 
-type CreateMesageValues = {
+type CreateMessageValues = {
   channelId: Id<"channels">;
   workspaceId: Id<"workspaces">;
   parentMessageId: Id<"messages">;
@@ -56,18 +56,20 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
 
   const { data: currentMember } = useCurrentMember({ workspaceId });
-  const { data: message, isLoading: loadingMessage } = useGetMessage({ id: messageId });
-  const { results, status, loadMore } = useGetMessages({ 
+  const { data: message, isLoading: loadingMessage } = useGetMessage({
+    id: messageId,
+  });
+  const { results, status, loadMore } = useGetMessages({
     channelId,
     parentMessageId: messageId,
   });
 
   const canLoadMore = status === "CanLoadMore";
   const isLoadingMore = status === "LoadingMore";
-  
+
   const handleSubmit = async ({
     body,
-    image
+    image,
   }: {
     body: string;
     image: File | null;
@@ -76,7 +78,7 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
       setIsPending(true);
       editorRef?.current?.enable(false);
 
-      const values: CreateMesageValues = {
+      const values: CreateMessageValues = {
         channelId,
         workspaceId,
         parentMessageId: messageId,
@@ -212,7 +214,7 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
                   threadName={message.threadName}
                   threadTimestamp={message.threadTimestamp}
                 />
-              )
+              );
             })}
           </div>
         ))}

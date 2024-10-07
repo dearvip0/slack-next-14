@@ -15,7 +15,9 @@ const ChannelIdPage = () => {
   const channelId = useChannelId();
 
   const { results, status, loadMore } = useGetMessages({ channelId });
-  const { data: channel, isLoading: channelLoading } = useGetChannel({ id: channelId });
+  const { data: channel, isLoading: channelLoading } = useGetChannel({
+    id: channelId,
+  });
 
   if (channelLoading || status === "LoadingFirstPage") {
     return (
@@ -29,14 +31,12 @@ const ChannelIdPage = () => {
     return (
       <div className="h-full flex-1 flex flex-col gap-y-2 items-center justify-center">
         <TriangleAlert className="size-5 text-muted-foreground" />
-        <span className="text-sm text-muted-foreground">
-          Channel not found
-        </span>
+        <span className="text-sm text-muted-foreground">Channel not found</span>
       </div>
     );
   }
 
-  return ( 
+  return (
     <div className="flex flex-col h-full">
       <Header title={channel.name} />
       <MessageList
@@ -51,5 +51,5 @@ const ChannelIdPage = () => {
     </div>
   );
 };
- 
+
 export default ChannelIdPage;

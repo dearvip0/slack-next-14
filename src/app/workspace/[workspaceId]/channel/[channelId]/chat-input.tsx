@@ -15,7 +15,7 @@ const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
 interface ChatInputProps {
   placeholder: string;
-};
+}
 
 type CreateMesageValues = {
   channelId: Id<"channels">;
@@ -38,7 +38,7 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
 
   const handleSubmit = async ({
     body,
-    image
+    image,
   }: {
     body: string;
     image: File | null;
